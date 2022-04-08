@@ -1,5 +1,5 @@
 #include "Calendar.h"
-//判断某年某月某日是周几的函数55555
+//判断某年某月某日是周几的函数55555666
 int Calendar::CaculateWeekDay(int y, int m, int d)
 {
     if (m == 1 || m == 2)
