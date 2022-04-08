@@ -13,7 +13,7 @@
 #include"MyLabel.h"
 #include"expr.h"
 #include"widget.h"
-//窗口类
+//窗口类2
 class Calendar : public QMainWindow
 {
     Q_OBJECT
