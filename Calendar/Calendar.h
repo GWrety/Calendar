@@ -1,5 +1,4 @@
 ﻿#pragma once
-#pragma execution_character_set("utf-8")
 #include <QtWidgets/QMainWindow>
 #include <QDate>
 #include<QLabel>
@@ -12,6 +11,7 @@
 #include "ui_Calendar.h"
 #include"todolist.h"
 #include"MyLabel.h"
+#include"expr.h"
 #include"widget.h"
 //窗口类
 class Calendar : public QMainWindow
@@ -38,10 +38,11 @@ private:
     QTimer* timer = new QTimer(this);//计时器
     QtWidgetsClass* a = new QtWidgetsClass;//子窗口用于显示todolist
     Widget* w=new Widget;//备忘录窗口
+    expr* calculator =new expr;//计算器窗口
     //每日一句
-    QTextEdit* text_saying;
+    QLabel* text_saying;
     //每日单词
-    QTextEdit* text_word;
+    QLabel* text_word;
     //刷新
     QPushButton* refreshdate;
     //当前年月日---------
@@ -59,11 +60,12 @@ private:
     QPushButton* Todo;
     //备忘录
     QPushButton* waiting;
-    
+    //计算器
+    QPushButton* Calculator;
     //拆分农历时使用
-    char str[16];
-    char s[16];
-    unsigned int LunarCalendarDay;
+    char str[14];
+    char s[14];
+    unsigned int LunarCalendarDay=0;
     int MonthAdd[12] = { 0,31,59,90,120,151,181,212,243,273,304,334 };
     unsigned int LunarCalendarTable[199] =
     {

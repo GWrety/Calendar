@@ -58,6 +58,12 @@
     <ClCompile Include="widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="expr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MyLabel.h">
@@ -75,6 +81,9 @@
     <QtMoc Include="widget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="expr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="todolist.ui">
@@ -89,5 +98,13 @@
     <QtUic Include="widget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="expr.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

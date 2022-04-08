@@ -1,5 +1,5 @@
 #include "Calendar.h"
-//判断某年某月某日是周几的函数55555666
+//判断某年某月某日是周几的函数
 int Calendar::CaculateWeekDay(int y, int m, int d)
 {
     if (m == 1 || m == 2)
@@ -156,8 +156,8 @@ int Calendar::LunarCalendar(int year, int month, int day)
 //展示农历
 char* Calendar::output(int year, int month, int day)
 {     
-    const char* ChDay[] = {"*  ","初一  ","初二  ","初三  ","初四  ","初五  ","初六  ","初七  ","初八  ","初九  ","初十  ", "十一  ","十二  ","十三  ","十四  ","十五  ","十六  ","十七  ","十八  ","十九  ","二十  ","廿一  ","廿二  ","廿三  ","廿四  ","廿五  ","廿六  ","廿七  ","廿八  ","廿九  ","三十  "};
-    const char* ChMonth[] = { "*  ","正  ","二  ","三  ","四  ","五  ","六  ","七  ","八  ","九  ","十  ","十一  ","腊  " };
+    const char* ChDay[] = {"*","初一","初二","初三","初四","初五","初六","初七","初八","初九","初十", "十一","十二","十三","十四","十五","十六","十七","十八","十九","二十","廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十"};
+    const char* ChMonth[] = { "*","正","二","三","四","五","六","七","八","九","十","十一","腊" };
     memset(str, '\0', sizeof(str));
     memset(s, '\0', sizeof(s));
     if (LunarCalendar(year, month, day))
@@ -167,11 +167,10 @@ char* Calendar::output(int year, int month, int day)
     }
     else
         strcat_s(s, ChMonth[(LunarCalendarDay & 0x3C0) >> 6]);
-    strcat_s(str, ChDay[LunarCalendarDay & 0x3F]);
-    LunarCalendarDay = 0;
+        strcat_s(str, ChDay[LunarCalendarDay & 0x1f]);//0x3f修改后
+        LunarCalendarDay = 0;
     return str;
 }
-
 Calendar::Calendar(QWidget* parent)
     : QMainWindow(parent)
 {
@@ -179,6 +178,8 @@ Calendar::Calendar(QWidget* parent)
     this->resize(800, 600);
     int w = this->width();
     int h = this->height();
+    //主界面白色
+    //this->setStyleSheet("background-color:rgb(205,209,211)");
     //获取当前年月日
     current_year = QDate::currentDate().year();
     current_month = QDate::currentDate().month();
@@ -196,16 +197,16 @@ Calendar::Calendar(QWidget* parent)
         headLine[i].setParent(this);
         headLine[i].resize(w / 10, h / 10);
         headLine[i].move(15 * w / 100 + i * w / 10, 3*h / 10);
-        headLine[i].setStyleSheet("QLabel{font-size:20px;}");
+        headLine[i].setStyleSheet("font-size:25px;background-color:rgb(173,213,162);border:1px solid Black;border-radius: 5px;");
         headLine[i].setAlignment(Qt::AlignCenter);
     }
-    headLine[1].setText(QString::fromLocal8Bit("周一"));
-    headLine[2].setText(QString::fromLocal8Bit("周二"));
-    headLine[3].setText(QString::fromLocal8Bit("周三"));
-    headLine[4].setText(QString::fromLocal8Bit("周四"));
-    headLine[5].setText(QString::fromLocal8Bit("周五"));
-    headLine[6].setText(QString::fromLocal8Bit("周六"));
-    headLine[0].setText(QString::fromLocal8Bit("周日"));
+    headLine[1].setText("周一");
+    headLine[2].setText("周二");
+    headLine[3].setText("周三");
+    headLine[4].setText("周四");
+    headLine[5].setText("周五");
+    headLine[6].setText("周六");
+    headLine[0].setText("周日");
     bar = new QLabel;
     bar->setParent(this);
     bar->resize(4*w / 10, 15*h / 100);
@@ -213,7 +214,7 @@ Calendar::Calendar(QWidget* parent)
     bar->setText(QString::number(current_year, 10)+ QString::fromLocal8Bit("年") + QString::number(current_month, 10) + QString::fromLocal8Bit("月"));
     bar->setStyleSheet("QLabel{font-size:20px;}");
     bar->setAlignment(Qt::AlignCenter);
-
+    
     //将数组单元分配到界面上
     for (int i = 0; i < 6; i++)
     {
@@ -230,21 +231,23 @@ Calendar::Calendar(QWidget* parent)
     //分配按钮
     QPushButton* add = new QPushButton;
     QIcon  t2;
-    t2.addFile(":/Calendar/add.jpg");
+    t2.addFile(":/Calendar/right.png");
     add->setIcon(t2);
     add->setIconSize(QSize(w / 10, 15 * h / 100));
-    add->resize(w /10, 15 * h / 100);
+    add->resize(15 * w / 100, 3*h / 10);
     add->setParent(this);
-    add->move(7*w / 10, 15 * h / 100);
+    add->move(85*w / 100,7 * h / 10);
+    add->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
     //add->setFlat(true);
     QPushButton* sub = new QPushButton;
     QIcon  t3;
-    t3.addFile(":/Calendar/sub.jpg");
+    t3.addFile(":/Calendar/left.png");
     sub->setIcon(t3);
     sub->setIconSize(QSize(w / 10, 15 * h / 100));
-    sub->resize(w /10, 15 * h / 100);
+    sub->resize(15 * w / 100,3* h / 10);
     sub->setParent(this);
-    sub->move(2*w /10, 15 * h / 100);
+    sub->move(0,7 * h / 10);
+    sub->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
     //sub->setFlat(true);
     connect(add, &QPushButton::clicked, this, &Calendar::addMonth);
     connect(sub, &QPushButton::clicked, this, &Calendar::subMonth);
@@ -267,36 +270,51 @@ Calendar::Calendar(QWidget* parent)
     QTime current = QTime::currentTime();
     srand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
     int b = rand() % 9;   //随机生成0到9的随机数
-    text_saying = new QTextEdit;
+    text_saying = new QLabel;
     text_saying->resize(3*w/10,15*h/100);
     text_saying->move(0,0);
     text_saying->setParent(this);
-    text_saying->insertPlainText(saying[b]);
-    text_word = new QTextEdit;
+    text_saying->setText(saying[b]);
+    text_saying->setAlignment(Qt::AlignCenter);
+    text_saying->setStyleSheet("font-size:15px");
+    text_word = new QLabel;
     text_word->resize(3*w/10, 15*h/100);
     text_word->move(7*w/10,0);
     text_word->setParent(this);
-    text_word->insertPlainText(word[b]);
+    text_word->setText(word[b]);
+    text_word->setAlignment(Qt::AlignCenter);
+    text_word->setStyleSheet("font-size:20px");
     refreshdate = new QPushButton;
     refreshdate->resize(2*w/10,15*h/100);
     refreshdate->move(4*w/10,0);
     refreshdate->setParent(this);
-    refreshdate->setText("refresh");
+    refreshdate->setText("刷新");
+    refreshdate->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
     connect(refreshdate, &QPushButton::clicked, this, [=] {this->UpdateSaying(); });
     //todolist
     Todo = new QPushButton;
-    Todo->setText("todolist");
+    Todo->setText("任务清单");
+    Todo->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
     Todo->resize(15*w/100,h/10);
     Todo->move(85*w/100,3*h/10);
     Todo->setParent(this);
     connect(Todo, &QPushButton::clicked, this, [=] {this->sx(); });
     //备忘录
     waiting = new QPushButton;
-    waiting->setText("Froget");
+    waiting->setText("备忘录");
     waiting->resize(15 * w / 100, h / 10);
     waiting->move(85 * w / 100, 4* h / 10);
+    waiting->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
     waiting->setParent(this);
     connect(waiting, &QPushButton::clicked, this, [=] {this->wit(); });
+    //计算器
+    Calculator = new QPushButton;
+    Calculator->setText("计算器");
+    Calculator->setParent(this);
+    Calculator->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
+    Calculator->resize(15 * w / 100, h / 10);
+    Calculator->move(0, 3* h / 10);
+    connect(Calculator, &QPushButton::clicked, this, [=] {calculator->show(); });
     //刷新日历数据
     initWidget();
 }
@@ -311,7 +329,7 @@ Calendar::~Calendar()
 }
 void  Calendar::initWidget()
 {
-    bar->setText(QString::number(current_year, 10) + QString::fromLocal8Bit("年") + QString::number(current_month, 10) + QString::fromLocal8Bit("月"));
+    bar->setText(QString::number(current_year, 10) + "年" + QString::number(current_month, 10) + "月");
     QString a;
     //计算该月的第一天是星期几
     int firweek = CaculateWeekDay(current_year, current_month, 1);
@@ -328,17 +346,17 @@ void  Calendar::initWidget()
     int currentMonthDay = getMonthDays(current_year, current_month);
     int total = 1;
     if (firweek == 1)
-    {
+    {   
         //显示上个月的天数
         for (int i = 6; i >= 0; i--)
         {
             if (current_month == 1)
             {
-                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + QString::fromLocal8Bit(output(current_year - 1, 12, lastMonthDay)));
+                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year - 1, 12, lastMonthDay));
             }
             else
             {
-                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month - 1, lastMonthDay)));
+                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" +output(current_year, current_month - 1, lastMonthDay));
             }
 
         }
@@ -381,18 +399,18 @@ void  Calendar::initWidget()
         {
             if (current_month == 1)
             {
-                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + QString::fromLocal8Bit(output(current_year-1, 12, lastMonthDay)));
+                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year-1, 12, lastMonthDay));
             }
             else
             {
-                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month - 1, lastMonthDay)));
+                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year, current_month - 1, lastMonthDay));
             }
            
         }
         //显示当前月
         for (int i = firweek; i < 7; i++)
         {
-            date[0][i].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month, total)));
+            date[0][i].setText(QString::number(total++, 10) + "\n" +output(current_year, current_month, total));
             if (QDate::currentDate().day() == total)
             {
                 date[0][i].setStyleSheet("QLabel{color:rgba(255, 0, 0, 255);font-size:30px;}");
@@ -401,7 +419,7 @@ void  Calendar::initWidget()
         int i = 1; int j = 0;
         while (total <= currentMonthDay)
         {
-            date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month, total)));
+            date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year, current_month, total));
            
             if (j == 7)
             {
@@ -416,11 +434,11 @@ void  Calendar::initWidget()
         {
             if (current_month == 12)
             {
-                date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year+1, 1, total)));
+                date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year+1, 1, total));
             }
             else
             {
-                date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month+1, total)));
+                date[i][j++].setText(QString::number(total++, 10) + "\n" +output(current_year, current_month+1, total));
             }         
             if (j == 7)
             {
@@ -429,6 +447,7 @@ void  Calendar::initWidget()
             }
         }
     }
+    qDebug() << 1;
 }
 
 void Calendar::addMonth()
@@ -460,8 +479,8 @@ void Calendar::UpdateSaying() {
     int b = rand() % 9;   //随机生成0到9的随机数
     text_saying->clear();
     text_word->clear();
-    text_saying->insertPlainText(saying[b]);
-    text_word->insertPlainText(word[b]);
+    text_saying->setText(saying[b]);
+    text_word->setText(word[b]);
 }
 
 void Calendar::ts()
