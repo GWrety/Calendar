@@ -1,14 +1,4 @@
 <RCC>
-    <qresource prefix="/Calendar">
-        <file>icon.jpeg</file>
-        <file>add.jpg</file>
-        <file>sub.jpg</file>
-        <file>back2.jpeg</file>
-        <file>word.txt</file>
-        <file>things.txt</file>
-        <file>saying.txt</file>
-        <file>TastFile.txt</file>
-        <file>left.png</file>
-        <file>right.png</file>
+    <qresource prefix="Calendar">
     </qresource>
 </RCC>
