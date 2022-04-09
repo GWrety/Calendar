@@ -14,25 +14,24 @@
     <ProjectGuid>{83DD15B1-F7FB-4D44-BBD1-FDD6D65F3313}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtModules>core;gui;widgets;core5compat;</QtModules>
+    <QtInstall>5.14.2_msvc2017_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
-    <QtInstall>6.2.4_msvc2019_64</QtInstall>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>5.14.2_msvc2017_64</QtInstall>
@@ -57,16 +56,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);$(Qt_LIBS_);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -94,44 +83,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="add.cpp" />
-    <ClCompile Include="delmemo.cpp" />
-    <ClCompile Include="expr.cpp" />
-    <ClCompile Include="model.cpp" />
     <ClCompile Include="MyLabel.cpp" />
-    <ClCompile Include="todolist.cpp" />
-    <ClCompile Include="widget.cpp" />
+    <ClCompile Include="schedule.cpp" />
     <QtRcc Include="Calendar.qrc" />
-    <QtUic Include="add.ui" />
     <QtUic Include="Calendar.ui" />
     <QtMoc Include="Calendar.h" />
     <ClCompile Include="Calendar.cpp" />
     <ClCompile Include="main.cpp" />
-    <QtUic Include="delmemo.ui" />
-    <QtUic Include="expr.ui" />
-    <QtUic Include="todolist.ui" />
-    <QtUic Include="widget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MyLabel.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="todolist.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="add.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="delmemo.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="widget.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="expr.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="model.h" />
+    <QtMoc Include="schedule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
