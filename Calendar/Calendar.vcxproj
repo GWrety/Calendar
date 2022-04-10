@@ -95,10 +95,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="add.cpp" />
+    <ClCompile Include="DailypicLabel.cpp" />
     <ClCompile Include="delmemo.cpp" />
     <ClCompile Include="expr.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="MyLabel.cpp" />
+    <ClCompile Include="schedule.cpp" />
     <ClCompile Include="todolist.cpp" />
     <ClCompile Include="widget.cpp" />
     <QtRcc Include="Calendar.qrc" />
@@ -131,6 +133,8 @@
     <QtMoc Include="expr.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="schedule.h" />
+    <QtMoc Include="DailypicLabel.h" />
     <ClInclude Include="model.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

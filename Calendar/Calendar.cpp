@@ -223,11 +223,27 @@ Calendar::Calendar(QWidget* parent)
             date[i][j].setParent(this);
             date[i][j].resize(w / 10, h / 10);
             date[i][j].move(15 * w / 100 +  j* w / 10, 4*h / 10 + i * h / 10);
+            connect(&date[i][j], &MyLabel::clicked, this, &Calendar::labelpress);
         }
     }
     QIcon  t1;
     t1.addFile(":/Calendar/icon.jpeg");
     this->setWindowIcon(t1);
+    //查看日程
+    schedule_window.hide();
+    schedule_window.setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint);
+    connect(&schedule_window, &schedule::sendOK, this, &Calendar::reciveOK);
+    connect(this, &Calendar::sendto_schdule, &schedule_window, &schedule::receive_frommain);
+    ifstream a;
+    a.open("daily.txt");
+    string s1 = "";
+    string s2 = "";
+    int k = 0;
+    while (a >> s1 && a >> s2)
+    {
+        t.insert(pair<string, string>(s1.substr(1), s2.substr(1)));
+    }
+    a.close();
     //分配按钮
     QPushButton* add = new QPushButton;
     QIcon  t2;
@@ -237,7 +253,7 @@ Calendar::Calendar(QWidget* parent)
     add->resize(15 * w / 100, 3*h / 10);
     add->setParent(this);
     add->move(85*w / 100,7 * h / 10);
-    add->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
+    add->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(36,128,103);border-radius:13px;border:1px solid Black;}");
     //add->setFlat(true);
     QPushButton* sub = new QPushButton;
     QIcon  t3;
@@ -247,7 +263,7 @@ Calendar::Calendar(QWidget* parent)
     sub->resize(15 * w / 100,3* h / 10);
     sub->setParent(this);
     sub->move(0,7 * h / 10);
-    sub->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
+    sub->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(36,128,103);border-radius:13px;border:1px solid Black;}");
     //sub->setFlat(true);
     connect(add, &QPushButton::clicked, this, &Calendar::addMonth);
     connect(sub, &QPushButton::clicked, this, &Calendar::subMonth);
@@ -259,18 +275,25 @@ Calendar::Calendar(QWidget* parent)
     if (!file2.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << 1;
     }
-    for (int i = 0; i < 10; ++i) {
-        char* b = new char[100];
-        file1.readLine(b, 100);
-        saying[i] = QString(b);
-        file2.readLine(b, 100);
-        word[i] = QString(b);
+    char* temp= new char[200];
+    for (int i = 0; i < 130; ++i) {
+        file1.readLine(temp, 200);
+        saying[i] = QString(temp);
+        //file2.readLine(b, 100);
+        //word[i] = QString(b);
     }
+    delete[]temp;
     //ui.setupUi(this);
     QTime current = QTime::currentTime();
     srand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
-    int b = rand() % 9;   //随机生成0到9的随机数
-    text_saying = new QLabel;
+    int b = rand() % 130;   //随机生成0到9的随机数
+    if (b % 2) {
+        if (b !=129)b--;
+        else {
+            b=0;
+        }
+    }
+    /*text_saying = new QLabel;
     text_saying->resize(3*w/10,15*h/100);
     text_saying->move(0,0);
     text_saying->setParent(this);
@@ -289,12 +312,25 @@ Calendar::Calendar(QWidget* parent)
     refreshdate->move(4*w/10,0);
     refreshdate->setParent(this);
     refreshdate->setText("刷新");
-    refreshdate->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
-    connect(refreshdate, &QPushButton::clicked, this, [=] {this->UpdateSaying(); });
+    refreshdate->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");*/
+    //connect(refreshdate, &QPushButton::clicked, this, [=] {this->UpdateSaying(); });
+    picture = new QWidget;
+    picture->setParent(this);
+    picture->setStyleSheet("border-image:url(:/Calendar/pic.jpg)");
+    picture->resize(w,90*h/100);
+    picture->move(0,10*h/100);
+    picture->hide();
+    Dailytpic = new DailyLabel;
+    Dailytpic->resize( w , 10* h / 100);
+    Dailytpic->move(0,0);
+    Dailytpic->setParent(this);
+    Dailytpic->setText(saying[b]+"\r"+saying[b+1]);
+    connect(Dailytpic, SIGNAL(enter()),this,SLOT(picshow()));
+    connect(Dailytpic, SIGNAL(leave()), this, SLOT(picclose()));
     //todolist
     Todo = new QPushButton;
     Todo->setText("任务清单");
-    Todo->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
+    Todo->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(143,178,201);border-radius:13px;border:1px solid Black;}");
     Todo->resize(15*w/100,h/10);
     Todo->move(85*w/100,3*h/10);
     Todo->setParent(this);
@@ -304,14 +340,14 @@ Calendar::Calendar(QWidget* parent)
     waiting->setText("备忘录");
     waiting->resize(15 * w / 100, h / 10);
     waiting->move(85 * w / 100, 4* h / 10);
-    waiting->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
+    waiting->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(143,178,201);border-radius:13px;border:1px solid Black;}");
     waiting->setParent(this);
     connect(waiting, &QPushButton::clicked, this, [=] {this->wit(); });
     //计算器
     Calculator = new QPushButton;
     Calculator->setText("计算器");
     Calculator->setParent(this);
-    Calculator->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(131,203,172);border-radius:13px;border:1px solid Black;}");
+    Calculator->setStyleSheet("QPushButton{color:rgb(238,247,242);background-color:rgb(143,178,201);border-radius:13px;border:1px solid Black;}");
     Calculator->resize(15 * w / 100, h / 10);
     Calculator->move(0, 3* h / 10);
     connect(Calculator, &QPushButton::clicked, this, [=] {calculator->show(); });
@@ -352,10 +388,12 @@ void  Calendar::initWidget()
         {
             if (current_month == 1)
             {
+                date[0][i].setDate(current_year - 1, 12, lastMonthDay);
                 date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year - 1, 12, lastMonthDay));
             }
             else
             {
+                date[0][i].setDate(current_year, current_month - 1, lastMonthDay);
                 date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" +output(current_year, current_month - 1, lastMonthDay));
             }
 
@@ -364,6 +402,7 @@ void  Calendar::initWidget()
         int i = 1; int j = 0;
         while (total <= currentMonthDay)
         {
+            date[i][j].setDate(current_year, current_month - 1, total);
             date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month - 1, total)));
 
             if (j == 7)
@@ -379,10 +418,12 @@ void  Calendar::initWidget()
         {
             if (current_month == 12)
             {
+                date[i][j].setDate(current_year + 1, 1, total);
                 date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year + 1, 1, total)));
             }
             else
             {
+                date[i][j].setDate(current_year, current_month + 1, total);
                 date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month+1, total)));
             }
             if (j == 7)
@@ -399,10 +440,12 @@ void  Calendar::initWidget()
         {
             if (current_month == 1)
             {
+                date[0][i].setDate(current_year - 1, 12, lastMonthDay);
                 date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year-1, 12, lastMonthDay));
             }
             else
             {
+                date[0][i].setDate(current_year, current_month - 1, lastMonthDay);
                 date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year, current_month - 1, lastMonthDay));
             }
            
@@ -419,6 +462,7 @@ void  Calendar::initWidget()
         int i = 1; int j = 0;
         while (total <= currentMonthDay)
         {
+            date[i][j].setDate(current_year, current_month, total);
             date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year, current_month, total));
            
             if (j == 7)
@@ -434,10 +478,12 @@ void  Calendar::initWidget()
         {
             if (current_month == 12)
             {
+                date[i][j].setDate(current_year + 1, 1, total);
                 date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year+1, 1, total));
             }
             else
             {
+                date[i][j].setDate(current_year, current_month + 1, total);
                 date[i][j++].setText(QString::number(total++, 10) + "\n" +output(current_year, current_month+1, total));
             }         
             if (j == 7)
@@ -476,11 +522,18 @@ void Calendar::subMonth()
 }
 
 void Calendar::UpdateSaying() {
-    int b = rand() % 9;   //随机生成0到9的随机数
-    text_saying->clear();
-    text_word->clear();
-    text_saying->setText(saying[b]);
-    text_word->setText(word[b]);
+    int b = rand() % 130;   //随机生成0到9的随机数
+    if (b % 2) {
+        if (b != 129)b--;
+        else {
+            b = 0;
+        }
+    }
+    //text_saying->clear();
+    //text_word->clear();
+    //text_saying->setText(saying[b]);
+    //text_word->setText(word[b]);
+    Dailytpic->setText(saying[b]+"\r"+saying[b+1]);
 }
 
 void Calendar::ts()
@@ -496,4 +549,95 @@ void Calendar::sx()
 void Calendar::wit() {
     
     w->show();
+};
+void Calendar::picshow() {
+    picture->show();
+    picture->raise();
+    UpdateSaying();
+};
+void Calendar::picclose() {
+    picture->close();
+};
+//查看日程
+void Calendar::labelpress(int y, int m, int d)
+{
+    string ymd = to_string(y);
+    if (m < 10)
+    {
+        ymd += "0";
+        ymd += to_string(m);
+    }
+    else
+    {
+        ymd += to_string(m);
+    }
+    if (d < 10)
+    {
+        ymd += "0";
+        ymd += to_string(d);
+    }
+    else
+    {
+        ymd += to_string(d);
+    }
+    map<string, string>::iterator iter = t.find(ymd);
+    //找到
+    string s = "";
+    if (iter != t.end())
+    {
+        s = iter->second;
+    }
+    emit(sendto_schdule(ymd + s));
+    schedule_window.move(this->size().width() / 4, this->size().height() / 4);
+    schedule_window.show();
+
+}
+void Calendar::reciveOK(string oc)
+{
+    this->show();
+    string ymd = oc.substr(1, 8);
+
+    if (oc[0] == 'D')
+    {
+        map<string, string>::iterator key = t.find(ymd);
+        if (key != t.end())
+        {
+            t.erase(key);
+        }
+        ofstream b("daily.txt");
+        string s1;
+        string s2;
+        for (auto it = t.begin(); it != t.end(); ++it)
+        {
+            s1 = "#" + (*it).first;
+            s2 = "#" + (*it).second;
+            b << s1;
+            b << endl;
+            b << s2;
+            b << endl;
+        }
+        b.close();
+    }
+    else if (oc[0] == 'C')
+    {
+        string cont = oc.substr(9, -1);
+        map<string, string>::iterator key = t.find(ymd);
+        if (key != t.end())
+        {
+            key->second = cont;
+        }
+        ofstream b("daily.txt");
+        string s1;
+        string s2;
+        for (auto it = t.begin(); it != t.end(); ++it)
+        {
+            s1 = "#" + (*it).first;
+            s2 = "#" + (*it).second;
+            b << s1;
+            b << endl;
+            b << s2;
+            b << endl;
+        }
+        b.close();
+    }
 };

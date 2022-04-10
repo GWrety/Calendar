@@ -10,5 +10,6 @@
         <file>TastFile.txt</file>
         <file>left.png</file>
         <file>right.png</file>
+        <file>pic.jpg</file>
     </qresource>
 </RCC>

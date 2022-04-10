@@ -64,6 +64,12 @@
     <ClCompile Include="model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DailypicLabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MyLabel.h">
@@ -82,6 +88,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="expr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DailypicLabel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="schedule.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
