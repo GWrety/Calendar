@@ -43,6 +43,8 @@ public  slots:
     void picclose();
 signals:
     void sendto_schdule(string s);
+    void sendwhto_schdule(int w, int h);
+
 private:
     //Ui::CalendarClass ui;
     QTimer* timer = new QTimer(this);//计时器

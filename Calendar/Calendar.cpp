@@ -243,6 +243,10 @@ Calendar::Calendar(QWidget* parent)
     {
         t.insert(pair<string, string>(s1.substr(1), s2.substr(1)));
     }
+    schedule_window.setParent(this);
+    connect(this, &Calendar::sendwhto_schdule, &schedule_window, &schedule::receivewh_frommain);
+    emit(sendwhto_schdule(w, h));
+    //schedule_window.move( w / 4,4*h / 10);
     a.close();
     //分配按钮
     QPushButton* add = new QPushButton;
@@ -588,7 +592,8 @@ void Calendar::labelpress(int y, int m, int d)
         s = iter->second;
     }
     emit(sendto_schdule(ymd + s));
-    schedule_window.move(this->size().width() / 4, this->size().height() / 4);
+    schedule_window.move(this->size().width() / 4, 3*this->size().height() / 10);
+    schedule_window.raise();
     schedule_window.show();
 
 }

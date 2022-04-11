@@ -113,3 +113,21 @@ void schedule::receive_frommain(string s)
 	l2->setText(QString::fromStdString(y+m+d));
 	t1->setText(QString::fromStdString(cont));
 }
+void schedule::receivewh_frommain(int w, int h)
+{
+	int ww = w / 2;
+	int hh = h / 2;
+	this->resize(ww, hh);
+
+
+	l1->resize(ww, 3 * hh / 5);
+	l1->move(0, 0);
+	l2->resize(ww, hh / 5);
+	l2->move(0, 3 * hh / 5);
+	p1->resize(ww / 3, hh / 5);
+	p1->move(ww * 2 / 3, hh * 4 / 5);
+	p2->resize(ww / 3, hh / 5);
+	p2->move(0, hh * 4 / 5);
+	p3->resize(ww / 3, hh / 5);
+	p3->move(ww / 3, hh * 4 / 5);
+};

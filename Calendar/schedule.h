@@ -13,6 +13,7 @@ public:
 	void p2_cli();
 	void p3_cli();
 	void receive_frommain(string s);
+	void receivewh_frommain(int w, int h);
 	string y;
 	string m;
 	string d;
