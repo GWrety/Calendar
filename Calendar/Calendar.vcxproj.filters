@@ -55,7 +55,7 @@
     <ClCompile Include="delmemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="widget.cpp">
+    <ClCompile Include="forget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="expr.cpp">
@@ -68,6 +68,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="schedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Daily.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,7 +90,7 @@
     <QtMoc Include="delmemo.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="widget.h">
+    <QtMoc Include="forget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="expr.h">
@@ -94,6 +100,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="schedule.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Daily.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="widget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -107,10 +119,16 @@
     <QtUic Include="delmemo.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="widget.ui">
+    <QtUic Include="forget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="expr.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Daily.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="widget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

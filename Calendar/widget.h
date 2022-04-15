@@ -1,36 +1,37 @@
-#ifndef WIDGET_H
-#define WIDGET_H
-#include"add.h"
-#include"delmemo.h"
-#include <QWidget>
-#include<QPushbutton>
+﻿#include <QWidget>
+#include<QDate>
+#include<QDateTime>
+#include<QString>
+#include<QLabel>
+#include<QPushButton>
+#include<QStringlist>
 #include<QFile>
 #include<QDebug>
-#include<QMessageBox>
+#include<QTextStream>
+#include<QTextCodec>
 #include<QByteArray>
-#include<QtCore5Compat/QTextCodec>
-#include<QTimer>
-#include<QPainter>
 #include "ui_widget.h"
+
 QT_BEGIN_NAMESPACE
-namespace Ui { class Widget; }
+namespace Ui { class zhangWidget; }
 QT_END_NAMESPACE
 
-class Widget : public QWidget
+class zhangWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
-    ~Widget();
-   void updatetime();
-   void paintEvent(QPaintEvent *event);
-   void updatetext();
+    zhangWidget(QWidget *parent = nullptr);
+    ~zhangWidget();
+     void readtofile();
+     void writetofile();
+     void allpay();
+     void deletedate();
 private:
-    Ui::Widget *ui;
-    add *Myadd;
-    QTimer *timer;
-    delmemo* dlt;
-
+    Ui::zhangWidget *ui;
+    QStringList name;
+    QStringList time;
+    QStringList sum;
+    QStringList about;
 };
-#endif // WIDGET_H
+

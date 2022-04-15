@@ -12,9 +12,11 @@
 #include"todolist.h"
 #include"MyLabel.h"
 #include"expr.h"
-#include"widget.h"
+#include"forget.h"
 #include"DailypicLabel.h"
 #include"schedule.h"
+#include"widget.h"
+#include"Daily.h"
 //窗口类2
 class Calendar : public QMainWindow
 {
@@ -38,6 +40,10 @@ public:
     //查看日程
     void labelpress(int y, int m, int d);
     void reciveOK(string s);
+    //添加日程
+    void show_adddaily();
+    //记账
+    void show_addzhang();
 public  slots:
     void picshow();
     void picclose();
@@ -51,6 +57,8 @@ private:
     QtWidgetsClass* a = new QtWidgetsClass;//子窗口用于显示todolist
     Widget* w=new Widget;//备忘录窗口
     expr* calculator =new expr;//计算器窗口
+    Daily* daily;//添加日程窗口
+    zhangWidget* jizhang;
     QWidget* picture;
     //每日一句
     //QLabel* text_saying;
@@ -75,11 +83,21 @@ private:
     QPushButton* Todo;
     //备忘录
     QPushButton* waiting;
-    //计算器
-    QPushButton* Calculator;
     //查看日程
     map<string, string>t;
     schedule schedule_window;
+    //添加日程
+    QPushButton* adddaily;
+    //添加记账
+    QPushButton* addzhang;
+    //计算器
+    QPushButton* Calculator;
+    //今天吃什么
+    QPushButton* Whateat;
+    // 答案之镜
+    QPushButton* Whatans;
+    // 每日健康
+    QPushButton* dailyhealth;
     //拆分农历时使用
     char str[14];
     char s[14];

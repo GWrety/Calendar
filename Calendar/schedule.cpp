@@ -131,3 +131,8 @@ void schedule::receivewh_frommain(int w, int h)
 	p3->resize(ww / 3, hh / 5);
 	p3->move(ww / 3, hh * 4 / 5);
 };
+
+
+
+
+
