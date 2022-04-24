@@ -7,6 +7,7 @@
 #include<QDebug>
 #include<QFile>
 #include<QTimer>
+#include<QPainter>
 #include<QtCore5Compat/QTextCodec>
 #include "ui_Calendar.h"
 #include"todolist.h"
@@ -44,6 +45,11 @@ public:
     void show_adddaily();
     //记账
     void show_addzhang();
+ 
+    void show_dailyhealth();
+    void show_whateat();
+    void show_whatans();
+    void paintEvent(QPaintEvent *);
 public  slots:
     void picshow();
     void picclose();

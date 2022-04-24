@@ -7,7 +7,7 @@ DailyLabel::DailyLabel(QWidget* parent) :QLabel(parent)
 	this->setAlignment(Qt::AlignBottom);
 	this->setAlignment(Qt::AlignHCenter);
 };
-void DailyLabel::enterEvent(QEnterEvent*)
+void DailyLabel::mousePressEvent(QMouseEvent*)
 {
 	emit(enter());
 }

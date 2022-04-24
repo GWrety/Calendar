@@ -222,8 +222,15 @@ void zhangWidget::allpay()
 {
     int len=sum.length();
     int pay=0;
-    for(int i=0;i<len;i++){
-        pay+=sum[i].toInt();
+    int x = sum[0].toInt();
+    for (int i = 0; i < len; i++) {
+        if (sum[i][1] =='-') {
+            QString temp = sum[i].mid(3, -1);
+            pay += 0-temp.toInt();
+        }
+        else {
+            pay += sum[i].toInt();
+        }        
     }
 
     ui->label_7->setText(QString::number(pay));

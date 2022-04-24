@@ -1,8 +1,5 @@
 <RCC>
     <qresource prefix="/Calendar">
-        <file>icon.jpeg</file>
-        <file>add.jpg</file>
-        <file>sub.jpg</file>
         <file>back2.jpeg</file>
         <file>word.txt</file>
         <file>things.txt</file>
@@ -11,5 +8,8 @@
         <file>left.png</file>
         <file>right.png</file>
         <file>pic.jpg</file>
+        <file>day.png</file>
+        <file>lady1.png</file>
+        <file>lady2.png</file>
     </qresource>
 </RCC>

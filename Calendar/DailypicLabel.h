@@ -9,7 +9,7 @@ public:
 	 DailyLabel(QWidget* parent = 0);
 	 QString style[3];
 	//鼠标进入事件
-	void enterEvent(QEnterEvent*);
+	 void mousePressEvent(QMouseEvent*);
 	//鼠标离开事
 	void leaveEvent(QEvent*);
 signals:
