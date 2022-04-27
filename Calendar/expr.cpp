@@ -6,9 +6,12 @@ expr::expr(QWidget *parent) :
     ui(new Ui::expr)
 {
     ui->setupUi(this);
+    this->setWindowIcon(QIcon(":/Calendar/cal.png"));
+    this->setWindowTitle("计算器");
     // 新建model，设置显示屏的默认值为0
         this->mode = new model;
         this->tmp = "";
+
 }
 expr::~expr()
 {

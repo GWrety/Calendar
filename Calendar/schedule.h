@@ -1,8 +1,9 @@
-#pragma once
+﻿#pragma once
 #include <QWidget>
 #include<QTextedit>
 #include<QPushbutton>
 #include<QLabel>
+#include<QPainter>
 using namespace std;
 class schedule : public QWidget
 {
@@ -14,6 +15,7 @@ public:
 	void p3_cli();
 	void receive_frommain(string s);
 	void receivewh_frommain(int w, int h);
+
 	string y;
 	string m;
 	string d;
@@ -25,8 +27,9 @@ public:
 	QPushButton* p2;
 	QPushButton* p3;
 	QTextEdit* t1;
-	QLabel *l1;
 	QLabel* l2;
 signals:
 	void sendOK(string oc);
+protected:
+	void paintEvent(QPaintEvent*);
 };

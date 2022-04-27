@@ -1,9 +1,11 @@
-#include "Daily.h"
+﻿#include "Daily.h"
 #include"qdatetime.h"
 Daily::Daily(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+	this->setWindowIcon(QIcon(":/Calendar/time.png"));
+	this->setWindowTitle("添加日程");
 	QDate date;
 	QFont a;
 	a.setPointSize(30);

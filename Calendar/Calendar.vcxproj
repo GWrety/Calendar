@@ -98,6 +98,7 @@
     <ClCompile Include="Daily.cpp" />
     <ClCompile Include="DailypicLabel.cpp" />
     <ClCompile Include="delmemo.cpp" />
+    <ClCompile Include="eatthing.cpp" />
     <ClCompile Include="expr.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="MyLabel.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="Daily.ui" />
     <QtUic Include="delmemo.ui" />
+    <QtUic Include="eatthing.ui" />
     <QtUic Include="expr.ui" />
     <QtUic Include="todolist.ui" />
     <QtUic Include="forget.ui" />
@@ -141,6 +143,8 @@
     <QtMoc Include="schedule.h" />
     <QtMoc Include="DailypicLabel.h" />
     <QtMoc Include="Daily.h" />
+    <ClInclude Include="answerwidget.h" />
+    <QtMoc Include="eatthing.h" />
     <ClInclude Include="model.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

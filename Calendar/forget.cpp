@@ -1,11 +1,12 @@
-#include "forget.h"
+﻿#include "forget.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    setWindowTitle("Memory Compent");
+    this->setWindowIcon(QIcon(":/Calendar/write.png"));
+    this->setWindowTitle("备忘录");
     connect(ui->pushButton_2,&QPushButton::clicked,[=](){
         this->close();
     });

@@ -115,8 +115,6 @@ Calendar::Calendar(QWidget* parent)
     for (int i = 0; i < 130; ++i) {
         file1.readLine(temp, 200);
         saying[i] = QString(temp);
-        //file2.readLine(b, 100);
-        //word[i] = QString(b);
     }
     delete[]temp;
 
@@ -148,6 +146,11 @@ Calendar::Calendar(QWidget* parent)
     jizhang = new zhangWidget;
     jizhang->hide();
 
+    answerwidget =new AnswerWidget;
+    answerwidget->hide();
+
+    eatwidget = new eatthing;
+    eatwidget->hide();
     //todolist
     Todo = new QPushButton(this);
     Todo->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
@@ -196,15 +199,15 @@ Calendar::Calendar(QWidget* parent)
         "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
     Whateat->resize(w / 10, h / 10);
     Whateat->move(0, 65 * h / 100);
-    connect(Calculator, &QPushButton::clicked, this, [=] {calculator->show(); });
-    //答案之镜
+    connect(Whateat, &QPushButton::clicked, this, [=] {this->show_whateat(); });
+    //答案之书
     Whatans = new QPushButton(this);
-    Whatans->setText("答案之镜");
+    Whatans->setText("答案之书");
     Whatans->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
         "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
     Whatans->resize(w / 10, h / 10);
     Whatans->move(0, 75 * h / 100);
-    connect(Whatans, &QPushButton::clicked, this, [=] {calculator->show(); });
+    connect(Whatans, &QPushButton::clicked, this, [=] {this->show_whatans(); });
     //计算器
     dailyhealth = new QPushButton(this);
     dailyhealth->setText("每日健康");
@@ -212,8 +215,7 @@ Calendar::Calendar(QWidget* parent)
         "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
     dailyhealth->resize( w / 10, h / 10);
     dailyhealth->move(0, 85* h / 100);
-    connect(dailyhealth, &QPushButton::clicked, this, [=] {calculator->show(); });
-    //
+    connect(dailyhealth, &QPushButton::clicked, this, [=] {this->show_dailyhealth(); });
     //刷新日历数据
     initWidget();
 }
@@ -694,10 +696,12 @@ void Calendar::show_dailyhealth() {
 
 };
 void Calendar::show_whateat() {
-
+    eatwidget->move(this->pos().x() + this->size().width() / 4, this->pos().y());
+    eatwidget->show();
 };
 void Calendar::show_whatans() {
-
+    answerwidget->move(this->pos().x() + this->size().width() / 4, this->pos().y());
+    answerwidget->show();
 };
 
 void Calendar::paintEvent(QPaintEvent *event) {

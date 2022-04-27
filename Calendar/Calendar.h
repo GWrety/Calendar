@@ -18,6 +18,8 @@
 #include"schedule.h"
 #include"widget.h"
 #include"Daily.h"
+#include"answerwidget.h"
+#include"eatthing.h"
 //窗口类2
 class Calendar : public QMainWindow
 {
@@ -66,10 +68,8 @@ private:
     Daily* daily;//添加日程窗口
     zhangWidget* jizhang;
     QWidget* picture;
-    //每日一句
-    //QLabel* text_saying;
-    //每日单词
-    //QLabel* text_word;
+    AnswerWidget* answerwidget;
+    eatthing* eatwidget;
     //图片
     DailyLabel* Dailytpic;
     //刷新

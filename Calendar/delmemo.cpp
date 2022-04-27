@@ -7,6 +7,7 @@ delmemo::delmemo(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("修改");
+
      QFile file("things.txt");
      file.open(QIODevice::ReadOnly);
      QTextCodec *codec=QTextCodec::codecForName("utf-8");

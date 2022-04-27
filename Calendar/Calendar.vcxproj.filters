@@ -76,6 +76,9 @@
     <ClCompile Include="widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="eatthing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MyLabel.h">
@@ -108,6 +111,9 @@
     <QtMoc Include="widget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="eatthing.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="todolist.ui">
@@ -131,9 +137,15 @@
     <QtUic Include="widget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="eatthing.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="answerwidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,8 @@ zhangWidget::zhangWidget(QWidget* parent)
     , ui(new Ui::zhangWidget)
 {
     ui->setupUi(this);
+    this->setWindowIcon(QIcon(":/Calendar/mony.png"));
+    this->setWindowTitle("记账大师");
     QDate current_date = QDate::currentDate();
     QString currentDate = current_date.toString("yyyy/MM/dd");
     ui->label_2->setText(currentDate);

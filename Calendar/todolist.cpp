@@ -4,10 +4,11 @@ QtWidgetsClass::QtWidgetsClass(QWidget *parent)
 	: QWidget(parent)
 {
 	TastFileIn.open("TastFile.txt");
+	this->setWindowIcon(QIcon(":/Calendar/run.png"));
 	string tes = "";
 	int t = 0;
 	ui.setupUi(this);
-	this->setWindowTitle("todo");
+	this->setWindowTitle("todo List");
 	for (int i = 0; i < 8; i++)
 	{
 		Tast[i] = "";
