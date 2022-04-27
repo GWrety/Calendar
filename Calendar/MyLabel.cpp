@@ -1,10 +1,12 @@
-#include "MyLabel.h"
+﻿#include "MyLabel.h"
 const QString labelstyle = "color:Black;background-color:White; font-size:20px;";
 MyLabel::MyLabel(QWidget* parent):QLabel(parent) 
 {
 	this->setMouseTracking(true);
 	this->setStyleSheet(labelstyle);
 	this->setAlignment(Qt::AlignCenter);
+	isToday = false;
+	isSchedule = false;
 };
 void MyLabel::enterEvent(QEnterEvent*)
 {
@@ -18,11 +20,25 @@ void MyLabel::enterEvent(QEnterEvent*)
 	this->raise();
 	lag = 1;
 }
-//����뿪�¼�
+//鼠标离开事件
 void MyLabel::leaveEvent(QEvent*)
 {
 	if (lag) {
 		this->setStyleSheet(labelstyle);
+		if (isToday)
+		{
+			//红边框
+			this->setStyleSheet("color:Black;background-color:White; font-size:20px;border:2px solid rgb(255, 0, 0);");
+		}
+		if (isSchedule)
+		{
+			this->setStyleSheet("color:Red;background-color:White; font-size:20px;");  //红字
+			if (isToday)
+			{
+				//红边框+红字
+				this->setStyleSheet("color:Red;background-color:White; font-size:20px;border:2px solid rgb(255, 0, 0);");
+			}
+		}
 		int x = this->size().width();
 		int y = this->size().height();
 		int pos_x = this->pos().x();
@@ -42,4 +58,42 @@ void MyLabel::setDate(int year, int month, int day)
 	this->year = year;
 	this->month = month;
 	this->day = day;
+};
+void MyLabel::setToday(bool Today)
+{
+	this->isToday = Today;
+	this->setStyleSheet(labelstyle);
+	if (isSchedule)
+	{
+		this->setStyleSheet("color:Red;background-color:White; font-size:20px;");  //红字
+	}
+	if (isToday)
+	{
+		//红边框
+		this->setStyleSheet("color:Black;background-color:White; font-size:20px;border:2px solid rgb(255, 0, 0);");
+		if (isSchedule)
+		{
+			//红边框+红子
+			this->setStyleSheet("color:Red;background-color:White; font-size:20px;border:2px solid rgb(255, 0, 0);");
+		}
+	}
+};
+void MyLabel::setSchedule(bool Schedule)
+{
+	this->isSchedule = Schedule;
+	this->setStyleSheet(labelstyle);
+	if (isToday)
+	{
+		//红边框
+		this->setStyleSheet("color:Black;background-color:White; font-size:20px;border:2px solid rgb(255, 0, 0);");
+	}
+	if (isSchedule)
+	{
+		this->setStyleSheet("color:Red;background-color:White; font-size:20px;");  //红字
+		if (isToday)
+		{
+			//红边框+红字
+			this->setStyleSheet("color:Red;background-color:White; font-size:20px;border:2px solid rgb(255, 0, 0);");
+		}
+	}
 };

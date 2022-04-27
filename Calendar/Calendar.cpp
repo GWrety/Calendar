@@ -375,8 +375,8 @@ int Calendar::LunarCalendar(int year, int month, int day)
 }
 //展示农历
 char* Calendar::output(int year, int month, int day)
-{     
-    const char* ChDay[] = {"*","初一","初二","初三","初四","初五","初六","初七","初八","初九","初十", "十一","十二","十三","十四","十五","十六","十七","十八","十九","二十","廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十"};
+{
+    const char* ChDay[] = { "*","初一","初二","初三","初四","初五","初六","初七","初八","初九","初十", "十一","十二","十三","十四","十五","十六","十七","十八","十九","二十","廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十" };
     const char* ChMonth[] = { "*","正","二","三","四","五","六","七","八","九","十","十一","腊" };
     memset(str, '\0', sizeof(str));
     memset(s, '\0', sizeof(s));
@@ -387,8 +387,8 @@ char* Calendar::output(int year, int month, int day)
     }
     else
         strcat_s(s, ChMonth[(LunarCalendarDay & 0x3C0) >> 6]);
-        strcat_s(str, ChDay[LunarCalendarDay & 0x1f]);//0x3f修改后
-        LunarCalendarDay = 0;
+    strcat_s(str, ChDay[LunarCalendarDay & 0x1f]);//0x3f修改后
+    LunarCalendarDay = 0;
     return str;
 }
 
@@ -420,7 +420,7 @@ void  Calendar::initWidget()
     int currentMonthDay = getMonthDays(current_year, current_month);
     int total = 1;
     if (firweek == 1)
-    {   
+    {
         //显示上个月的天数
         for (int i = 6; i >= 0; i--)
         {
@@ -432,7 +432,7 @@ void  Calendar::initWidget()
             else
             {
                 date[0][i].setDate(current_year, current_month - 1, lastMonthDay);
-                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" +output(current_year, current_month - 1, lastMonthDay));
+                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year, current_month - 1, lastMonthDay));
             }
 
         }
@@ -462,7 +462,7 @@ void  Calendar::initWidget()
             else
             {
                 date[i][j].setDate(current_year, current_month + 1, total);
-                date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month+1, total)));
+                date[i][j++].setText(QString::number(total++, 10) + "\n" + QString::fromLocal8Bit(output(current_year, current_month + 1, total)));
             }
             if (j == 7)
             {
@@ -479,19 +479,19 @@ void  Calendar::initWidget()
             if (current_month == 1)
             {
                 date[0][i].setDate(current_year - 1, 12, lastMonthDay);
-                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year-1, 12, lastMonthDay));
+                date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year - 1, 12, lastMonthDay));
             }
             else
             {
                 date[0][i].setDate(current_year, current_month - 1, lastMonthDay);
                 date[0][i].setText(QString::number(lastMonthDay--, 10) + "\n" + output(current_year, current_month - 1, lastMonthDay));
             }
-           
+
         }
         //显示当前月
         for (int i = firweek; i < 7; i++)
         {
-            date[0][i].setText(QString::number(total++, 10) + "\n" +output(current_year, current_month, total));
+            date[0][i].setText(QString::number(total++, 10) + "\n" + output(current_year, current_month, total));
             if (QDate::currentDate().day() == total)
             {
                 date[0][i].setStyleSheet("QLabel{color:rgba(255, 0, 0, 255);font-size:30px;}");
@@ -502,7 +502,7 @@ void  Calendar::initWidget()
         {
             date[i][j].setDate(current_year, current_month, total);
             date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year, current_month, total));
-           
+
             if (j == 7)
             {
                 i++;
@@ -517,13 +517,13 @@ void  Calendar::initWidget()
             if (current_month == 12)
             {
                 date[i][j].setDate(current_year + 1, 1, total);
-                date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year+1, 1, total));
+                date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year + 1, 1, total));
             }
             else
             {
                 date[i][j].setDate(current_year, current_month + 1, total);
-                date[i][j++].setText(QString::number(total++, 10) + "\n" +output(current_year, current_month+1, total));
-            }         
+                date[i][j++].setText(QString::number(total++, 10) + "\n" + output(current_year, current_month + 1, total));
+            }
             if (j == 7)
             {
                 i++;
@@ -532,6 +532,83 @@ void  Calendar::initWidget()
         }
     }
     qDebug() << 1;
+    string ymd;
+    string tmp;
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 7; j++)
+        {
+            ymd = "";
+            if (date[i][j].year < 10)
+            {
+                ymd += "0";
+                ymd += to_string(date[i][j].year);
+            }
+            else
+            {
+                ymd = to_string(date[i][j].year);
+            }
+            if (date[i][j].month < 10)
+            {
+                ymd += "0";
+                ymd += to_string(date[i][j].month);
+            }
+            else
+            {
+                ymd += to_string(date[i][j].month);
+            }
+            if (date[i][j].day < 10)
+            {
+                ymd += "0";
+                ymd += to_string(date[i][j].day);
+            }
+            else
+            {
+                ymd += to_string(date[i][j].day);
+            }
+            map<string, string>::iterator iter = t.find(ymd);
+            tmp = to_string(QDate::currentDate().year());
+            if (QDate::currentDate().month() < 10)
+            {
+                tmp += "0";
+                tmp += to_string(QDate::currentDate().month());
+            }
+            else
+            {
+                tmp += to_string(QDate::currentDate().month());
+            }
+            if (QDate::currentDate().day() < 10)
+            {
+                tmp += "0";
+                tmp += to_string(QDate::currentDate().day());
+            }
+            else
+            {
+                tmp += to_string(QDate::currentDate().day());
+            }
+            if (tmp == ymd)
+            {
+                date[i][j].setToday(true);
+            }
+            else
+            {
+                date[i][j].setToday(false);
+            }
+            //找到
+            if (iter != t.end())
+            {
+                date[i][j].setSchedule(true);
+            }
+            else
+            {
+                date[i][j].setSchedule(false);
+            }
+
+
+        }
+    }
+
+
 }
 
 void Calendar::addMonth()
@@ -624,11 +701,12 @@ void Calendar::labelpress(int y, int m, int d)
     if (iter != t.end())
     {
         s = iter->second;
+        emit(sendto_schdule(ymd + s));
+        schedule_window.move(this->pos().x() + this->size().width() / 4, this->pos().y() + 3 * this->size().height() / 10);
+        schedule_window.raise();
+        schedule_window.show();
     }
-    emit(sendto_schdule(ymd + s));
-    schedule_window.move(this->pos().x()+this->size().width() / 4, this->pos().y()+ 3*this->size().height() / 10);
-    schedule_window.raise();
-    schedule_window.show();
+
 
 }
 
@@ -696,7 +774,7 @@ void Calendar::show_dailyhealth() {
 
 };
 void Calendar::show_whateat() {
-    eatwidget->move(this->pos().x() + this->size().width() / 4, this->pos().y());
+    eatwidget->move(this->pos().x(), this->pos().y());
     eatwidget->show();
 };
 void Calendar::show_whatans() {
@@ -710,7 +788,6 @@ void Calendar::paintEvent(QPaintEvent *event) {
     int w = this->width();
     int h = this->height();
     painter.drawRoundedRect(15*w/100,15*h/100,7*w/10,7*h/10,80,50);
-    
     painter.drawRoundedRect(90 * w / 100,55*h /100,2*w / 10, 40 * h / 100,20, 10);
     painter.drawRoundedRect(-w/10, 55*h /100,2*w / 10,40* h /100, 20, 10);
     painter.drawPixmap(0,10*h/100,15*w/100,45*h/100,QPixmap(":/Calendar/lady1.png"));

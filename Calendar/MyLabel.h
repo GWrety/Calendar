@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <QLabel>
 #include <QMouseEvent>
 #include<QEvent>
@@ -8,14 +8,17 @@ class MyLabel : public QLabel
 public:
 	explicit MyLabel(QWidget* parent = 0);
 	int lag = 0;
-	//Êó±ê½øÈëÊÂ¼ş
+	//é¼ æ ‡è¿›å…¥äº‹ä»¶
 	void enterEvent(QEnterEvent*);
-	//Êó±êÀë¿ªÊÂ
+	//é¼ æ ‡ç¦»å¼€äº‹
 	void leaveEvent(QEvent*);
 	int year;
 	int month;
 	int day;
-
+	bool isToday;
+	bool isSchedule;
+	void setToday(bool Today);
+	void setSchedule(bool Schedule);
 	void mousePressEvent(QMouseEvent* event);
 
 	void setDate(int year, int month, int day);
