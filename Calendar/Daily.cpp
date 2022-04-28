@@ -30,5 +30,10 @@ void Daily::UpDateDaile()
 	ui.textEdit->setFont(a);
 	temp = "SUCCEED ADD!!!";
 	ui.textEdit->setText(temp.toLocal8Bit());
+	string ymd = tempa.substr(0, 4);
+	ymd += tempa.substr(5, 2);
+	ymd += tempa.substr(8, 2);
+
+	emit(sendDail(ymd,temps));
 	b.close();
 }

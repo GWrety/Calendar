@@ -1,4 +1,4 @@
-#include "Drink.h"
+ï»¿#include "Drink.h"
 bool ismore = false;
 Drink::Drink(QWidget *parent)
     : QMainWindow(parent)
@@ -36,7 +36,7 @@ Drink::Drink(QWidget *parent)
     connect(ui.pushButton_more, &QPushButton::clicked, this, &Drink::more_cli);
     connect(ui.pushButton_make, &QPushButton::clicked, this, &Drink::make_cli);
     connect(ui.comboBox_4, SIGNAL(currentIndexChanged(int)), this, SLOT(time_change(int)));
-    ui.comboBox_1->addItems(QStringList() << QString::fromLocal8Bit("ÄĞ") << QString::fromLocal8Bit("Å®"));
+    ui.comboBox_1->addItems(QStringList() << "ç”·" << "å¥³");
     ui.comboBox_1->setStyleSheet("QComboBox{border:1px solid gray;  border - radius:3px;  padding: 5px; min - width:4em;}QComboBox::drop - down{ subcontrol - origin:padding; subcontrol - position:top right; width:20px; border - left - width:1px; border - left - color:darkgray; border - left - style:solid; border - top - right - radius:3px; border - bottom - right - radius:3px;}");
     ui.comboBox_2->setStyleSheet("QComboBox{border:1px solid gray;  border - radius:3px;  padding: 5px; min - width:4em;}QComboBox::drop - down{ subcontrol - origin:padding; subcontrol - position:top right; width:20px; border - left - width:1px; border - left - color:darkgray; border - left - style:solid; border - top - right - radius:3px; border - bottom - right - radius:3px;}");
     ui.comboBox_3->setStyleSheet("QComboBox{border:1px solid gray;  border - radius:3px;  padding: 5px; min - width:4em;}QComboBox::drop - down{ subcontrol - origin:padding; subcontrol - position:top right; width:20px; border - left - width:1px; border - left - color:darkgray; border - left - style:solid; border - top - right - radius:3px; border - bottom - right - radius:3px;}");
@@ -98,7 +98,7 @@ Drink::Drink(QWidget *parent)
     ui.label_2->setStyleSheet("QLabel{font-size:20px;font-family:YouYuan;}");
     ui.label_3->setStyleSheet("QLabel{font-size:20px;font-family:YouYuan;}");
     ui.label_4->setStyleSheet("QLabel{font-size:20px;font-family:YouYuan;}");
-    ui.label->setText(QString::fromLocal8Bit("½ñÈÕÄ¿±ê£º") + QString::number(allneed) + "ML");
+    ui.label->setText("ä»Šæ—¥ç›®æ ‡:" + QString::number(allneed) + "ML");
     ui.pushButton_drink->setStyleSheet(" QPushButton{background-color:rgb(252,183,10);border-radius:10px;border:2px groove gray;border-style: outset;font-family: Microsoft YaHei;color:black;font-size:20px;}" "QPushButton:hover{background-color:yellow;color:black;}");
     ui.pushButton_make->setStyleSheet(" QPushButton{background-color:rgb(252,183,10);border-radius:10px;border:2px groove gray;border-style: outset;font-family: Microsoft YaHei;color:black;font-size:20px;}" "QPushButton:hover{background-color:yellow;color:black;}");
     ui.pushButton_more->setStyleSheet(" QPushButton{background-color:rgb(252,183,10);border-radius:10px;border:2px groove gray;border-style: outset;font-family: Microsoft YaHei;color:black;font-size:20px;}" "QPushButton:hover{background-color:yellow;color:black;}");
@@ -140,9 +140,9 @@ void Drink::make_cli()
     int a = ui.comboBox_3->currentIndex();
     once = a * 100 + 100;
     weight = ui.comboBox_2->currentIndex() + 40;
-    //ÌåÖØ*40ÊÇÒ»ÌìµÄºÈË®Á¿
+    //ä½“é‡*40æ˜¯ä¸€å¤©çš„å–æ°´é‡
     allneed= (ui.comboBox_2->currentIndex()+40)*40;
-    ui.label->setText(QString::fromLocal8Bit("½ñÈÕÄ¿±ê£º") + QString::number(allneed) + "ML");
+    ui.label->setText("ä»Šæ—¥ç›®æ ‡ï¼š"+ QString::number(allneed) + "ML");
 };
 void Drink::time_change(int index)
 {
@@ -188,21 +188,21 @@ void Drink::paintEvent(QPaintEvent*)
         ui.pushButton_drink->show();
         int m_rotateAngle = 360 * m_persent / 100;
         int side = qMin(width() * 2 / 3, height() * 2 / 3);
-        QRectF outRect(70, 100, side, side);//¾ØĞÎ³¤¿íÎª´°¿ÚµÄ³¤¿í
+        QRectF outRect(70, 100, side, side);//çŸ©å½¢é•¿å®½ä¸ºçª—å£çš„é•¿å®½
         QRectF inRect(90, 120, side - 40, side - 40);
         QString valueStr = QString("%1%").arg(QString::number(m_persent));
-        //»­ÍâÔ²
+        //ç”»å¤–åœ†
         p.setPen(Qt::NoPen);
         QColor qq(0, 0, 128);
         p.setBrush(Qt::gray);
         p.drawEllipse(outRect);
-        //»­ÄÚÔ²
+        //ç”»å†…åœ†
         p.setBrush(Qt::blue);
         p.drawPie(outRect, (90 - m_rotateAngle) * 16, m_rotateAngle * 16);
-        //»­ÕÚÕÖ£¬ÕÚÕÖÑÕÉ«Îª´°¿ÚÑÕÉ«
+        //ç”»é®ç½©ï¼Œé®ç½©é¢œè‰²ä¸ºçª—å£é¢œè‰²
         p.setBrush(Qt::white);
         p.drawEllipse(inRect);
-        //»­ÎÄ×Ö
+        //ç”»æ–‡å­—
         QFont f = QFont("Microsoft YaHei", 15, QFont::Bold);
         p.setFont(f);
         p.setFont(f);

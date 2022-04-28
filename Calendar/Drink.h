@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include "ui_Drink.h"
@@ -8,7 +8,7 @@
 using namespace std;
 class Drink : public QMainWindow
 {
-    Q_OBJECT
+    Q_OBJECT;
 
 public:
     Drink(QWidget *parent = Q_NULLPTR);
@@ -17,19 +17,21 @@ public:
     void more_cli();
     void make_cli();
    
-    int time=5;//¼ä¸ôÊ±¼ä
-    int allneed=2400;  //×Ü¹²ºÈË®Á¿
-    int once=500;  //Ò»±­ºÈË®Á¿
+    int time=5;//é—´éš”æ—¶é—´
+    int allneed=2400;  //æ€»å…±å–æ°´é‡
+    int once=500;  //ä¸€æ¯å–æ°´é‡
     int havedrunk = 0;
     int m_persent = 0;
     int weight = 60;
     FILE* file=NULL;
-private:
-    Ui::DrinkClass ui;
 signals:
     void sendTime(int time);
+private:
+    Ui::DrinkClass ui;
+
 protected:
     void paintEvent(QPaintEvent*);
 public slots:
     void time_change(int index);
+
 };

@@ -3,6 +3,11 @@ Calendar::Calendar(QWidget* parent)
     : QMainWindow(parent)
 {
     //ui.setupUi(this);
+    tim = new QTimer();
+    tim->setInterval(1000 * 60);
+    connect(tim, SIGNAL(timeout()), this, SLOT(onTimeOut()));
+    tim->start();
+   
     this->resize(800, 600);
     int w = this->width();
     int h = this->height();
@@ -214,6 +219,25 @@ Calendar::Calendar(QWidget* parent)
     dailyhealth->move(0, 85* h / 100);
     connect(dailyhealth, &QPushButton::clicked, this, [=] {this->show_dailyhealth(); });
     //刷新日历数据
+    initWidget();
+
+    connect(drinkwidget, &Drink::sendTime, this, &Calendar::rece_drink);
+    connect(daily, &Daily::sendDail, this, &Calendar::rece_dail);
+
+}
+void Calendar::onTimeOut()
+{
+    QMessageBox::information(this, "喝水助手","您该喝水了", QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok);
+    dailyhealth->show();
+};
+void Calendar::rece_drink(int time)
+{
+    tim->setInterval(1000 * 60*time);
+    tim->start();
+};
+void Calendar::rece_dail(string ymd, string dail)
+{
+    t.insert(pair<string, string>(ymd, dail));
     initWidget();
 }
 //判断某年某月某日是周几的函数

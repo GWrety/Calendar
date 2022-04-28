@@ -21,6 +21,7 @@
 #include"answerwidget.h"
 #include"eatthing.h"
 #include"Drink.h"
+#include<QMessageBox>
 //窗口类2
 class Calendar : public QMainWindow
 {
@@ -52,6 +53,8 @@ public:
     void show_dailyhealth();
     void show_whateat();
     void show_whatans();
+    void rece_drink(int time);
+    void rece_dail(string ymd, string dail);
     void paintEvent(QPaintEvent *);
 public  slots:
     void picshow();
@@ -82,6 +85,7 @@ private:
     MyLabel** date;//数据label
     QLabel* headLine;//星期label
     QLabel* bar;//当前月份label
+    QTimer* tim;
     //每日内容
     QString saying[200];
     QString word[10];
@@ -152,4 +156,7 @@ private:
     0x0D5252,0x0DAA47,0x66B53B,0x056D4F,0x04AE45,0x4A4EB9,0x0A4D4C,0x0D1541,0x2D92B5
      /*2091-2099*/
     };
+public slots:
+        void onTimeOut();
+
 };

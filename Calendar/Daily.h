@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include "ui_Daily.h"
@@ -17,7 +17,8 @@ public:
     Daily(QWidget *parent = Q_NULLPTR);
 public slots:
 	void UpDateDaile();
-
+signals:
+    void sendDail(string ymd,string dail);
 private:
     Ui::DailyClass ui;
 };

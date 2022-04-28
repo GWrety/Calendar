@@ -31,9 +31,7 @@ zhangWidget::zhangWidget(QWidget* parent)
         for(int i=0;i<len;i++){
             int col=0;
             ui->tableWidget->setItem(i,col++,new QTableWidgetItem(name[i]));
-            /*ui->tableWidget->setItem(i,col++,new QTableWidgetItem(time[i]));
-            ui->tableWidget->setItem(i,col++,new QTableWidgetItem(sum[i]));
-            ui->tableWidget->setItem(i,col++,new QTableWidgetItem(about[i]));*/}
+        }
 
         int len2=time.length();
         for(int i=0;i<len2;i++){
@@ -224,17 +222,18 @@ void zhangWidget::allpay()
 {
     int len=sum.length();
     int pay=0;
-    int x = sum[0].toInt();
-    for (int i = 0; i < len; i++) {
-        if (sum[i][1] =='-') {
-            QString temp = sum[i].mid(3, -1);
-            pay += 0-temp.toInt();
+    if (len > 0) {
+        int x = sum[0].toInt();
+        for (int i = 0; i < len; i++) {
+            if (sum[i][1] == '-') {
+                QString temp = sum[i].mid(3, -1);
+                pay += 0 - temp.toInt();
+            }
+            else {
+                pay += sum[i].toInt();
+            }
         }
-        else {
-            pay += sum[i].toInt();
-        }        
     }
-
     ui->label_7->setText(QString::number(pay));
 }
 void zhangWidget::deletedate(){
