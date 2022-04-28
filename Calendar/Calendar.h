@@ -20,6 +20,7 @@
 #include"Daily.h"
 #include"answerwidget.h"
 #include"eatthing.h"
+#include"Drink.h"
 //窗口类2
 class Calendar : public QMainWindow
 {
@@ -66,14 +67,13 @@ private:
     Widget* w=new Widget;//备忘录窗口
     expr* calculator =new expr;//计算器窗口
     Daily* daily;//添加日程窗口
+    Drink* drinkwidget;
     zhangWidget* jizhang;
     QWidget* picture;
     AnswerWidget* answerwidget;
     eatthing* eatwidget;
     //图片
     DailyLabel* Dailytpic;
-    //刷新
-    //QPushButton* refreshdate;
     //当前年月日---------
     int current_year; //当前年
     int current_month;//当前月

@@ -3,6 +3,7 @@
 #include<QPushButton>
 #include<QFile>
 #include<QLabel>
+#include<QPropertyAnimation>
 #include<QPainter>
 class AnswerWidget : public QWidget
 {
@@ -11,6 +12,7 @@ public:
         this->resize(400, 600);
         this->setWindowTitle("认识你自己");
         this->setWindowIcon(QIcon(":/Calendar/anser.png"));
+       
         button = new QPushButton(this);
         button->resize(400, 100);
         button->move(0, 500);
@@ -30,6 +32,15 @@ public:
         }
         delete[]temp;
     };
+    void Show() {
+
+        QPropertyAnimation* animation = new QPropertyAnimation(this, "windowOpacity");
+        animation->setDuration(1000);
+        animation->setStartValue(0);
+        animation->setEndValue(1);
+        animation->start();
+        this->show();
+    }
     void getans() {
         int n = ans.size();
         srand(time(0));

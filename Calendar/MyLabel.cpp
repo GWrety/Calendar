@@ -1,5 +1,5 @@
 ﻿#include "MyLabel.h"
-const QString labelstyle = "color:Black;background-color:White; font-size:20px;";
+const QString labelstyle = "color:Black;background-color:White;font-family:'幼圆';font-size:20px;";
 MyLabel::MyLabel(QWidget* parent):QLabel(parent) 
 {
 	this->setMouseTracking(true);
@@ -10,7 +10,7 @@ MyLabel::MyLabel(QWidget* parent):QLabel(parent)
 };
 void MyLabel::enterEvent(QEnterEvent*)
 {
-	this->setStyleSheet("border-radius: 13px;color:White;font-size:25px;background-color:rgb(252,183,10);border:1px solid Black;");
+	this->setStyleSheet("border-radius: 13px;color:White;font-size:25px;font-family:'幼圆';background-color:rgb(252,183,10);border:1px solid Black;");
 	int x = this->size().width();
 	int y = this->size().height();
 	int pos_x = this->pos().x();

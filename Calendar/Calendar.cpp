@@ -149,12 +149,16 @@ Calendar::Calendar(QWidget* parent)
     answerwidget =new AnswerWidget;
     answerwidget->hide();
 
+    drinkwidget = new Drink;
+    drinkwidget->hide();
+
     eatwidget = new eatthing;
     eatwidget->hide();
+    QString buttonstyle = "QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;font-family:'幼圆'; font-size:15px;}"
+        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;font-size:20px;}";
     //todolist
     Todo = new QPushButton(this);
-    Todo->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    Todo->setStyleSheet(buttonstyle);
     Todo->setText("todo");
     Todo->resize(w / 10, h/10);
     Todo->move(90 * w / 100, 55 * h / 100);
@@ -164,8 +168,7 @@ Calendar::Calendar(QWidget* parent)
     waiting->resize(1 * w / 10, h / 10);
     waiting->move(90 * w / 100, 65 * h / 100);
     waiting->setText("备忘录");
-    waiting->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    waiting->setStyleSheet(buttonstyle);
     waiting->setParent(this);
     connect(waiting, &QPushButton::clicked, this, [=] {this->wit(); });
     //添加日程
@@ -173,46 +176,40 @@ Calendar::Calendar(QWidget* parent)
     adddaily->resize(w / 10, h / 10);
     adddaily->move(90 * w / 100, 75 * h / 100);
     adddaily->setText("添加日程");
-    adddaily->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    adddaily->setStyleSheet(buttonstyle);
     connect(adddaily, &QPushButton::clicked, this, [=] {this->show_adddaily(); });
     //记账
     addzhang = new QPushButton(this);
     addzhang->resize( w / 10, h / 10);
     addzhang->setText("记账");
     addzhang->move(90 * w / 100, 85 * h / 100);
-    addzhang->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    addzhang->setStyleSheet(buttonstyle);
     connect(addzhang, &QPushButton::clicked, this, [=] {this->show_addzhang(); });
     //计算器
     Calculator = new QPushButton(this);
     Calculator->setText("计算器");
-    Calculator->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    Calculator->setStyleSheet(buttonstyle);
     Calculator->resize( w / 10, h / 10);
     Calculator->move(0, 55 * h / 100);
     connect(Calculator, &QPushButton::clicked, this, [=] {calculator->show(); });
     //今天吃什么
     Whateat = new QPushButton(this);
     Whateat->setText("今天吃什么");
-    Whateat->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    Whateat->setStyleSheet(buttonstyle);
     Whateat->resize(w / 10, h / 10);
     Whateat->move(0, 65 * h / 100);
     connect(Whateat, &QPushButton::clicked, this, [=] {this->show_whateat(); });
     //答案之书
     Whatans = new QPushButton(this);
     Whatans->setText("答案之书");
-    Whatans->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    Whatans->setStyleSheet(buttonstyle);
     Whatans->resize(w / 10, h / 10);
     Whatans->move(0, 75 * h / 100);
     connect(Whatans, &QPushButton::clicked, this, [=] {this->show_whatans(); });
     //计算器
     dailyhealth = new QPushButton(this);
     dailyhealth->setText("每日健康");
-    dailyhealth->setStyleSheet("QPushButton{background-color:rgb(249,210,125);border-radius:13px;border:1px solid Black;}"
-        "QPushButton:hover{background-color:rgb(252,183,10);border-radius:20px;border:1px solid Black;}");
+    dailyhealth->setStyleSheet(buttonstyle);
     dailyhealth->resize( w / 10, h / 10);
     dailyhealth->move(0, 85* h / 100);
     connect(dailyhealth, &QPushButton::clicked, this, [=] {this->show_dailyhealth(); });
@@ -644,10 +641,6 @@ void Calendar::UpdateSaying() {
             b = 0;
         }
     }
-    //text_saying->clear();
-    //text_word->clear();
-    //text_saying->setText(saying[b]);
-    //text_word->setText(word[b]);
     Dailytpic->setText(saying[b]+"\r"+saying[b+1]);
 }
 
@@ -764,6 +757,7 @@ void Calendar::reciveOK(string oc)
 //添加日程
 void Calendar::show_adddaily() {
     daily->show();
+    
 };
 //记账
 void Calendar::show_addzhang() {
@@ -771,7 +765,8 @@ void Calendar::show_addzhang() {
 };
 
 void Calendar::show_dailyhealth() {
-
+    drinkwidget->move(this->pos().x() + this->size().width() / 4, this->pos().y());
+    drinkwidget->show();
 };
 void Calendar::show_whateat() {
     eatwidget->move(this->pos().x(), this->pos().y());
@@ -779,7 +774,7 @@ void Calendar::show_whateat() {
 };
 void Calendar::show_whatans() {
     answerwidget->move(this->pos().x() + this->size().width() / 4, this->pos().y());
-    answerwidget->show();
+    answerwidget->Show();
 };
 
 void Calendar::paintEvent(QPaintEvent *event) {
